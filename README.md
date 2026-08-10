@@ -36,6 +36,8 @@ Some people also use the **deprecated** [Street view app from Google 🟡](https
 
 I'm not aware of any other working apps (especially for iPhone) which are free, so **any suggestions are appreciated!**
 
+You can also use an app like [Hugin 🟡/🔴](https://hugin.sourceforge.io/) to **stitch together** a bunch of **normal photos**.
+
 ## Uploading 360 photos to Google maps 🟢
 [⬆ Back to top](#top)
 
