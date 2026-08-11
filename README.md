@@ -20,7 +20,8 @@ This is meant for **everyone** - **beginners** with little technical knowledge u
   * [Uploading 360 photos to Google maps 🟢](#uploading-360-photos-to-google-maps-)
   * [Photos upload info/FAQ ⚪](#photos-upload-infofaq-)
   * [Finding a placeId 🟢](#finding-a-placeid-)
-  * [Creating a traverse-able photo tour 🟡](#creating-a-photo-tour--traverse-able-photos-)
+  * [Creating a traverse-able photo tour workflow 🟡](#creating-a-photo-tour--traverse-able-photos-workflow-)
+  * [Linking two or more photos together](#creating-connections--linking-photos-)
   * [Using APIs - general guide 🟡](#using-apis---general-guide-)
 
 ## Creating 360 photo spheres (phone) 🟢/🟡
@@ -49,14 +50,28 @@ Here I will try to explain how to use it.
 
 When you first open the site, you will have to **log in** using your **Google account**. Log in and grant it the necessary permissions.
 
-After that, you are able to add an image. When you do, the website automatically **loads the information** from it like the coordinates (if there are any). You can always set custom coordinates - either because the website didn't detect any or because you want a more precise location for the photo.
+<img alt="PhotoSphereStudio page with the login button highlighted" src="./images/photospherestudio-login-button.png" />
 
-For individual photos (not planning on making a photo tour/traverse-able photos), you generally **don't** have to set the **Heading/pose**. However, if you are planning on making a **walk-able photo tour** (with the arrows), I **HEAVILY** recommend setting it.
+After that, you are able to add an image. When you do, the website automatically **loads the information** from it like the coordinates (if there are any).
 
-At the bottom, there is an "advanced options" option - click it. At the bottom now there is an optional field to set a placeId, which I **heavily recommend** you do - since this will associate the photo with a place instead of showing it as being an unknown place. You can check the [finding a placeId](#finding-a-placeid-) section. Also if you later need to find the photo's information, you can filter by the placeId
+<img alt="PhotoSphereStudio page with the upload button and field highlighted" src="./images/photospherestudio-add-image-showcase.png" />
+
+<img alt="PhotoSphereStudio page with all of the photo's settings highlighted into 4 steps and also with the advanced options button highlighted." src="./images/photospherestudio-image-options-steps.png" />
+
+**1.**
+You can always set custom coordinates - either because the website didn't detect any or because you want a more precise location for the photo.
 
 The website also gives you the "Publish url as a marker to this website's map and backup image?" - which is up to you. Later deleting the image means it will also delete from the website.
 
+At the bottom, there is an "advanced options" option - **click it**. 
+
+**2.**
+For individual photos (not planning on making a photo tour/traverse-able photos), you generally **don't** have to set the **Heading/pose**. However, if you are planning on making a **walk-able photo tour** (with the arrows), I **HEAVILY** recommend setting it.
+
+**3.**
+At the bottom now there is an optional field to set a placeId, which I **heavily recommend** you do - since this will associate the photo with a place instead of showing it as being an unknown place. You can check the [finding a placeId](#finding-a-placeid-) section. Also if you later need to find the photo's information, you can filter by the placeId
+
+**4.**
 Then you are **ready to upload the photo** - click on the "Upload" button and wait a bit for the website to process it. If you did everything right, will get a link for Google maps! You can also click the debug information option, where you will find the **ID of the photo**, which may be useful for other things in this guide.
 
 Please check the [**Photos upload info/FAQ**](#photos-upload-infofaq-) section now!
@@ -73,11 +88,102 @@ When your photo gets uploaded, it will **NOT APPEAR** as a **blue circle (YET)**
 
 I recommend using [this website](https://geo-devrel-javascript-samples.web.app/samples/places-placeid-finder/app/dist/) to find the placeId. Just open it, search for your place in the top left, select it and then copy the placeId from the map. Warning - you **HAVE to SEARCH** for it, just finding it and clicking on it won't give you the placeId.
 
-## Creating a photo tour / traverse-able photos 🟡
+## Creating a photo tour / traverse-able photos workflow 🟡
 [⬆ Back to top](#top)
 
 If you want to create a photo tour (like the street view images with arrows), here is how to do it.
-First, [upload your photos](#uploading-360-photos-to-google-maps-) and **remember their IDs** - up to you on how you do it. Make sure to set the **Heading/pose**.
+First, [upload your photos](#uploading-360-photos-to-google-maps-) and **remember their IDs** - up to you on how you do it. Make sure to set the **Heading/pose**. If you already have the photos uploaded and have their IDs, you can continue below.
+
+## Creating connections / Linking photos 🟡
+[⬆ Back to top](#top)
+
+### Single connections
+We are going to use the [photos.update](https://developers.google.com/streetview/publish/reference/rest/v1/photo/update) API for this. Don't worry - it's not going to be hard. Please **read** the [Using APIs - general guide 🟡](#using-apis---general-guide-) first.
+
+**YOU WILL HAVE TO DO THIS REQUEST MULTIPLE TIMES - IF YOU WANT TO CONNECT TWO PHOTOS, YOU WILL HAVE TO DO THIS FOR THE FIRST PHOTO AND THEN FOR THE SECOND (or then later n'th photo)**
+
+When you open the API's page, you will see three important fields - below "Request parameters", there is **"id" and "updateMask"**. In the id field (field below id), paste the **photo's whole ID**. In the updateMask field, type out ```connections```.
+By doing this, we tell the API that we want to update the specific photo and that we want to update it's connections.
+
+Now for the request body. The request body will vary by how many connections the photo has - how many photos you want connected to it, how many walk-able arrows.
+
+For only one connection, the body will look like this:
+```json
+{
+  "connections": [
+    {
+      "target": {
+        "id": "ID_OF_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+      }
+    }
+  ]
+}
+```
+Replace ```ID_OF_PHOTO_WHICH_YOU_WANT_TO_CONENCT``` with the ID of the photo you want to connect. If you have photo A and photo B and you want to connect photo A to photo B, you will type photo A's ID in the **request parameters field** and photo B's ID in the **request body**.
+
+**YOU WILL HAVE TO DO THIS REQUEST MULTIPLE TIMES - IF YOU WANT TO CONNECT TWO PHOTOS, YOU WILL HAVE TO DO THIS FOR PHOTO A AND THEN FOR PHOTO B**
+
+Let's look at an example. Let's say we want to link a photo with the ID ```CAoSHUFGMVFpcE16elR1dG9yaWFsU2FtcGxlSWQ5ODc2``` to the photo with the ID ```CAoSHEFGMVFpcE5leGFtcGxlRmFrZUlEMTIzNDU2Nzg.```. We will first have to **fill the first id** filed (under Request parameters) to the first photo's id. We then set the mask to ```connections```. Lastly, we will then **edit the body** template to have the second photo's ID:
+```json
+{
+  "connections": [
+    {
+      "target": {
+        "id": "CAoSHEFGMVFpcE5leGFtcGxlRmFrZUlEMTIzNDU2Nzg."
+      }
+    }
+  ]
+}
+```
+
+How it looks on the website (some of the IDs are cut off because of the length):
+
+<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./images/example-api-update-connections-filled.png" />
+
+Then just **press** the blue "Execute" button!
+
+### Multiple connections
+This is almost the same as single connections, except you edit the body to have more connections - meaning **only the body changes**. This is the example for two connections:
+```json
+{
+  "connections": [
+    {
+      "target": {
+        "id": "ID_OF_THE_FIRST_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+      }
+    },
+    {
+      "target": {
+        "id": "ID_OF_THE_SECOND_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+      }
+    }
+  ]
+}
+```
+
+For three links:
+```json
+{
+  "connections": [
+    {
+      "target": {
+        "id": "ID_OF_THE_FIRST_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+      }
+    },
+    {
+      "target": {
+        "id": "ID_OF_THE_SECOND_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+      }
+    },
+    {
+      "target": {
+        "id": "ID_OF_THE_THIRD_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+      }
+    }
+  ]
+}
+```
+... and so on. The rest of the request (first id, updateMask) stays the same. **Don't forget to do this for all of the photos!**
 
 ## Using APIs - general guide 🟡
 [⬆ Back to top](#top)
