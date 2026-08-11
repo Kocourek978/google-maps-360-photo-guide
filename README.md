@@ -107,6 +107,38 @@ When you open the API's page, you will see three important fields - below "Reque
 
 <img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./images/api-right-panel-fields.png" />
 
+### Updating heading
+Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
+
+In the updateMask field, type out ```pose.heading```.
+By doing this, we tell the API that we want to update the photo's heading.
+
+For the request body, just **edit this template** and **replace** ```YOUR_HEADING_NUMBER``` with the photo's heading.
+
+```json
+{
+  "pose": {
+    "heading": YOUR_HEADING_NUMBER
+  }
+}
+```
+
+A filled-in template example might look like this:
+
+```json
+{
+  "pose": {
+    "heading": 173.56
+  }
+}
+```
+
+**Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
+
+A complete **filled-in example** might look like this:
+
+<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./images/example-api-update-heading-filled.png" />
+
 ### Updating the linked places (placeIDs)
 Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
 
@@ -114,7 +146,9 @@ In the updateMask field, type out ```places```.
 By doing this, we tell the API that we want to update the photo's linked places.
 
 For the request body, just **edit this template** and **replace** ```YOUR_PLACE_ID``` with the place's ID.
-If you don't know how to get the placeId, check out [Finding a placeId 🟢](#finding-a-placeid-).
+
+If you **don't know** how to get the placeId, check out [Finding a placeId 🟢](#finding-a-placeid-).
+
 
 ```json
 {
@@ -137,7 +171,9 @@ A filled-in template example might look like this:
 }
 ```
 
-It's also possible that your photo has multiple places in it. Luckily, you can have multiple placeIds!
+**Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
+
+It's also possible that your photo has **multiple places** in it. Luckily, you **can** have multiple placeIds!
 
 ```json
 {
@@ -151,9 +187,9 @@ It's also possible that your photo has multiple places in it. Luckily, you can h
   ]
 }
 ```
-Note: it doesn't matter which place you put first. You can also continue this sequence to have your photo linked to even more places!
+Note: it **doesn't matter** which place you put first. You can also **continue this sequence** to have your photo linked to even more places!
 
-A complete filled-in example might look like this:
+A complete **filled-in example** might look like this:
 
 <img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./images/example-api-update-places-filled.png" />
 
@@ -191,9 +227,9 @@ An example of how it might look like filled in:
 
 <img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./images/example-api-update-latlng-pair-filled.png" />
 
-**Paste** the filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
+**Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
 
-### Updating connections (Linking photos) 🟡
+### Updating connections (Linking photos)
 Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
 
 #### Single connections
@@ -239,7 +275,7 @@ How it looks on the website (some of the IDs are cut off because of the length):
 
 <img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./images/example-api-update-connections-filled.png" />
 
-Then just **press** the blue "Execute" button!
+**Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
 
 #### Multiple connections
 ------
