@@ -88,6 +88,8 @@ When your photo gets uploaded, it will **NOT APPEAR** as a **blue circle (YET)**
 
 I recommend using [this website](https://geo-devrel-javascript-samples.web.app/samples/places-placeid-finder/app/dist/) to find the placeId. Just open it, search for your place in the top left, select it and then copy the placeId from the map. Warning - you **HAVE to SEARCH** for it, just finding it and clicking on it won't give you the placeId.
 
+<img alt="A map on which there are three steps highlighted - searching for the place, clicking on the search result and copying the place ID" src="./images/get-placeid-page-search-overview.png" />
+
 ## Creating a photo tour / traverse-able photos workflow 🟡
 [⬆ Back to top](#top)
 
