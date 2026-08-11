@@ -96,16 +96,113 @@ I recommend using [this website](https://geo-devrel-javascript-samples.web.app/s
 If you want to create a photo tour (like the street view images with arrows), here is how to do it.
 First, [upload your photos](#uploading-360-photos-to-google-maps-) and **remember their IDs** - up to you on how you do it. Make sure to set the **Heading/pose**. If you already have the photos uploaded and have their IDs, you can continue below.
 
-## Creating connections / Linking photos 🟡
+## Updating photos' information 🟡
 [⬆ Back to top](#top)
 
-### Single connections
 We are going to use the [photos.update](https://developers.google.com/streetview/publish/reference/rest/v1/photo/update) API for this. Don't worry - it's not going to be hard. Please **read** the [Using APIs - general guide 🟡](#using-apis---general-guide-) first.
+
+Once a photo is uploaded, you can update almost anything about it - its connections, its heading/pose, or the placeId it's linked to - without re-uploading it. All of this is done with the same photos.update API, just with a different updateMask and request body depending on what you want to change.
+
+When you open the API's page, you will see three important fields - below "Request parameters", there is **"id" and "updateMask"**. In the id field (field below id), paste the **photo's whole ID** (the photo whose information you want to update). You will be told what to put in the updateMask field based on what you want to update.
+
+<img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./images/api-right-panel-fields.png" />
+
+### Updating the linked places (placeIDs)
+Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
+
+In the updateMask field, type out ```places```.
+By doing this, we tell the API that we want to update the photo's linked places.
+
+For the request body, just **edit this template** and **replace** ```YOUR_PLACE_ID``` with the place's ID.
+If you don't know how to get the placeId, check out [Finding a placeId 🟢](#finding-a-placeid-).
+
+```json
+{
+  "places": [
+    {
+      "placeId": "YOUR_PLACE_ID"
+    }
+  ]
+}
+```
+
+A filled-in template example might look like this:
+```json
+{
+  "places": [
+    {
+      "placeId": "ChIJQ9b_zXquEmsRY6cF2rm2v0M"
+    }
+  ]
+}
+```
+
+It's also possible that your photo has multiple places in it. Luckily, you can have multiple placeIds!
+
+```json
+{
+  "places": [
+    {
+      "placeId": "YOUR_FIRST_PLACE_ID"
+    },
+    {
+      "placeId": "YOUR_SECOND_PLACE_ID"
+    }
+  ]
+}
+```
+Note: it doesn't matter which place you put first. You can also continue this sequence to have your photo linked to even more places!
+
+A complete filled-in example might look like this:
+
+<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./images/example-api-update-places-filled.png" />
+
+### Updating the location
+Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
+
+In the updateMask field, type out ```pose.lat_lng_pair```.
+By doing this, we tell the API that we want to update the photo's latitude and longitude.
+
+For the request body, just **edit this template** and **replace** ```LATITUDE_NUMBER``` and ```LONGITUDE_NUMBER``` with the numbers. Here's the template:
+```json
+{
+  "pose": {
+    "latLngPair": {
+      "latitude": LATITUDE_NUMBER,
+      "longitude": LONGITUDE_NUMBER
+    }
+  }
+}
+```
+
+A filled-in template example might look like this:
+```json
+{
+  "pose": {
+    "latLngPair": {
+      "latitude": 40.71966068310044,
+      "longitude": -73.84973789565215
+    }
+  }
+}
+```
+
+An example of how it might look like filled in:
+
+<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./images/example-api-update-latlng-pair-filled.png" />
+
+**Paste** the filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
+
+### Updating connections (Linking photos) 🟡
+Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
+
+#### Single connections
+------
 
 **YOU WILL HAVE TO DO THIS REQUEST MULTIPLE TIMES - IF YOU WANT TO CONNECT TWO PHOTOS, YOU WILL HAVE TO DO THIS FOR THE FIRST PHOTO AND THEN FOR THE SECOND (or then later n'th photo)**
 
-When you open the API's page, you will see three important fields - below "Request parameters", there is **"id" and "updateMask"**. In the id field (field below id), paste the **photo's whole ID**. In the updateMask field, type out ```connections```.
-By doing this, we tell the API that we want to update the specific photo and that we want to update it's connections.
+In the updateMask field, type out ```connections```.
+By doing this, we tell the API that we want to update the specific photo's connections.
 
 Now for the request body. The request body will vary by how many connections the photo has - how many photos you want connected to it, how many walk-able arrows.
 
@@ -144,7 +241,9 @@ How it looks on the website (some of the IDs are cut off because of the length):
 
 Then just **press** the blue "Execute" button!
 
-### Multiple connections
+#### Multiple connections
+------
+
 This is almost the same as single connections, except you edit the body to have more connections - meaning **only the body changes**. This is the example for two connections:
 ```json
 {
