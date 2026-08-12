@@ -44,9 +44,9 @@ If you are planning on making a **photo tour** OR you want your photo to **have 
 
 When you have your app, you can take the 360 pictures using it! The method will **depend on the app**, but most apps usually work like this:
 
-You first take an **initial photo** somewhere around you - usually at the mid point. Then **4 points appear** around the photo (top, right, left, bottom) - you **aim your camera** at one of the points and **it takes a photo** and new points get shown. You do this until there are **no points left** where you could take a picture - meaning you **photographed the space around you** which will then get stitched into a sphere!
+You first take an initial photo somewhere around you - usually at the mid point. Then 4 points appear around the photo (top, right, left, bottom) - you aim your camera at one of the points and **it takes a photo** and new points get shown. You do this until there are no points left where you could take a picture - meaning you photographed the space around you which will then get stitched into a sphere!
 
-I **personally** like to take photos by first doing one circle around the **middle part** (always going either left or right), then doing a second circle on **the bottom** (take one photo on the bottom and again keep going left or right from the new photo's points) and then do the **same for the top**. I then **fill in** the rest of **the sky** and usually **don't** take a photo of the space right **at the bottom** (so my legs aren't there - **BUT** your photo app **might require** you **take that photo**).
+I personally like to take photos by first doing one circle around the middle part (always going either left or right), then doing a second circle on the bottom (take one photo on the bottom and again keep going left or right from the new photo's points) and then do the same for the top. I then fill in the rest of the sky and usually **don't** take a photo of the space right **at the bottom** (so my legs aren't there - **BUT** your photo app **might require** you take that photo).
 
 ## Uploading 360 photos to Google maps 🟢
 [⬆ Back to top](#top)
@@ -100,6 +100,41 @@ When your photo gets uploaded, it will **NOT APPEAR** as a **blue circle (YET)**
 I recommend using [this website](https://geo-devrel-javascript-samples.web.app/samples/places-placeid-finder/app/dist/) to find the placeId. Just open it, search for your place in the top left, select it and then copy the placeId from the map. Warning - you **HAVE to SEARCH** for it, just finding it and clicking on it won't give you the placeId.
 
 <img alt="A map on which there are three steps highlighted - searching for the place, clicking on the search result and copying the place ID" src="./images/get-placeid-page-search-overview.png" />
+
+## Getting a photo's heading before it was shot 🟢
+[⬆ Back to top](#top)
+
+The easiest way to get a photo's heading is to note it down **while you're actually taking the photo**. Before you start shooting, open your phone's **compass app** (most phones have one built in) and **face the direction your 360 app starts recording from** (this is usually the direction you're facing when you press the shutter/start button - check how your specific app works if you're not sure). **Write down the heading number the compass shows** - that's your photo's heading!
+
+<img width="300" height="600" alt="A compass app showing the compass and a heading of 72 degrees" src="./images/phone-compass-app-example.png" />
+Image example: the heading number here would be 72.
+
+It doesn't need to be perfectly precise - a few degrees off won't be noticeable.
+
+**How it would look in action:**
+1. Find a place where you'll be taking the 360 photo
+2. Face towards where you'll take **the first** photo
+3. Open the compass app and note down **the heading** - the number of degrees you're facing
+4. **Take** the first photo and continue with the rest of the sphere
+
+...And you're done! You have a 360 photo and its heading!
+
+## Using APIs - general guide 🟡
+[⬆ Back to top](#top)
+
+This is a simple guide on how to generally use the APIs, which are in some of the sections in this guide. In the examples below, the API for updating photos will be used - but this is **general info for all of the APIs** here.
+
+For using the APIs, I recommend doing this on **a laptop**. If you are using a phone, you have to use the **desktop version** of the website.
+
+Now onto how to actually use them. Your page will open with **a lot of info** - fortunately you can **ignore most of it**. Focus on the **panel on the right** and **click the API button**.
+
+<img width="1920" height="1060" alt="Developers.google.com page with the API button highlighted on the right panel" src="./images/api-navigate-to-right-panel.png" />
+
+A **window will** open, which will look something like this (you may need to scroll up/down). The window has **three main parts** - **"Request parameters"**, where you will usually set things like the photo's ID. Then the **"Request body"** - you will usually find a template body in the API guide with some TEMPLATE_VARIABLES (indicated by the caps lock and underscores instead of spaces). You should **edit the template body** (eg. replace latitude/longitude text with actual values) and then you can **paste the whole body into the section** with two curly braces - just delete them and instead place the edited body template there. Lastly, the blue **"Execute" button** - when you open the page for the first time (or after a long time), it will ask you to **log in** and give it permission to edit things on your account. This is safe since this is google's official API - you need to **give the permissions** for everything to work. **YOU SHOULD ONLY ENTER THE PARAMETERS WHICH ARE IN THE GUIDE, OTHERWISE YOU MAY BREAK YOUR PHOTOS** - unless you read through the documentation on the pages and you understand how it works.
+
+<img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./images/api-right-panel-fields.png" />
+
+Lastly, when you have all of the values and the body filled in, **click the execute button**. It might take a moment, but a **response will appear underneath**. The response will include a number - the **number 200 meaning it was correct**. Also - generally, the response includes the photo's ID if it was correct.
 
 ## Creating a photo tour / traverse-able photos workflow 🟡
 [⬆ Back to top](#top)
@@ -259,13 +294,13 @@ For only one connection, the body will look like this:
   "connections": [
     {
       "target": {
-        "id": "ID_OF_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+        "id": "ID_OF_PHOTO_WHICH_YOU_WANT_TO_CONNENCT"
       }
     }
   ]
 }
 ```
-Replace ```ID_OF_PHOTO_WHICH_YOU_WANT_TO_CONENCT``` with the ID of the photo you want to connect. If you have photo A and photo B and you want to connect photo A to photo B, you will type photo A's ID in the **request parameters field** and photo B's ID in the **request body**.
+Replace ```ID_OF_PHOTO_WHICH_YOU_WANT_TO_CONNENCT``` with the ID of the photo you want to connect. If you have photo A and photo B and you want to connect photo A to photo B, you will type photo A's ID in the **request parameters field** and photo B's ID in the **request body**.
 
 **YOU WILL HAVE TO DO THIS REQUEST MULTIPLE TIMES - IF YOU WANT TO CONNECT TWO PHOTOS, YOU WILL HAVE TO DO THIS FOR PHOTO A AND THEN FOR PHOTO B**
 
@@ -332,35 +367,3 @@ For three links:
 }
 ```
 ... and so on. The rest of the request (first id, updateMask) stays the same. **Don't forget to do this for all of the photos!**
-
-## Using APIs - general guide 🟡
-[⬆ Back to top](#top)
-
-This is a simple guide on how to generally use the APIs, which are in some of the sections in this guide. In the examples below, the API for updating photos will be used - but this is **general info for all of the APIs** here.
-
-For using the APIs, I recommend doing this on **a laptop**. If you are using a phone, you have to use the **desktop version** of the website.
-
-Now onto how to actually use them. Your page will open with **a lot of info** - fortunately you can **ignore most of it**. Focus on the **panel on the right** and **click the API button**.
-
-<img width="1920" height="1060" alt="Developers.google.com page with the API button highlighted on the right panel" src="./images/api-navigate-to-right-panel.png" />
-
-A **window will** open, which will look something like this (you may need to scroll up/down). The window has **three main parts** - **"Request parameters"**, where you will usually set things like the photo's ID. Then the **"Request body"** - you will usually find a template body in the API guide with some TEMPLATE_VARIABLES (indicated by the caps lock and underscores instead of spaces). You should **edit the template body** (eg. replace latitude/longitude text with actual values) and then you can **paste the whole body into the section** with two curly braces - just delete them and instead place the edited body template there. Lastly, the blue **"Execute" button** - when you open the page for the first time (or after a long time), it will ask you to **log in** and give it permission to edit things on your account. This is safe since this is google's official API - you need to **give the permissions** for everything to work. **YOU SHOULD ONLY ENTER THE PARAMETERS WHICH ARE IN THE GUIDE, OTHERWISE YOU MAY BREAK YOUR PHOTOS** - unless you read through the documentation on the pages and you understand how it works.
-
-<img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./images/api-right-panel-fields.png" />
-
-Lastly, when you have all of the values and the body filled in, **click the execute button**. It might take a moment, but a **response will appear underneath**. The response will include a number - the **number 200 meaning it was correct**. Also - generally, the response includes the photo's ID if it was correct.
-
-## Getting a photo's heading before it was shot 🟢
-[⬆ Back to top](#top)
-
-The easiest way to get a photo's heading is to note it down **while you're actually taking the photo**. Before you start shooting, open your phone's **compass app** (most phones have one built in) and **face the direction your 360 app starts recording from** (this is usually the direction you're facing when you press the shutter/start button - check how your specific app works if you're not sure). **Write down the heading number the compass shows** - that's your photo's heading!
-
-It doesn't need to be perfectly precise - a few degrees off won't be noticeable.
-
-**How it would look in action:**
-1. Find a place where you'll be taking the 360 photo
-2. Face towards where you'll take **the first** photo
-3. Open the compass app and note down **the heading** - the number of degrees you're facing
-4. **Take** the first photo and continue with the rest of the sphere
-
-...And you're done! You have a 360 photo and its heading!
