@@ -39,6 +39,15 @@ I'm not aware of any other working apps (especially for iPhone) which are free, 
 
 You can also use an app like [Hugin 🟡/🔴](https://hugin.sourceforge.io/) to **stitch together** a bunch of **normal photos**.
 
+-----
+If you are planning on making a **photo tour** OR you want your photo to **have a heading**, I recommend reading [how to get a photo's heading 🟢](#getting-a-photos-heading-before-it-was-shot-) first.
+
+When you have your app, you can take the 360 pictures using it! The method will **depend on the app**, but most apps usually work like this:
+
+You first take an **initial photo** somewhere around you - usually at the mid point. Then **4 points appear** around the photo (top, right, left, bottom) - you **aim your camera** at one of the points and **it takes a photo** and new points get shown. You do this until there are **no points left** where you could take a picture - meaning you **photographed the space around you** which will then get stitched into a sphere!
+
+I **personally** like to take photos by first doing one circle around the **middle part** (always going either left or right), then doing a second circle on **the bottom** (take one photo on the bottom and again keep going left or right from the new photo's points) and then do the **same for the top**. I then **fill in** the rest of **the sky** and usually **don't** take a photo of the space right **at the bottom** (so my legs aren't there - **BUT** your photo app **might require** you **take that photo**).
+
 ## Uploading 360 photos to Google maps 🟢
 [⬆ Back to top](#top)
 
@@ -67,6 +76,8 @@ At the bottom, there is an "advanced options" option - **click it**.
 
 **2.**
 For individual photos (not planning on making a photo tour/traverse-able photos), you generally **don't** have to set the **Heading/pose**. However, if you are planning on making a **walk-able photo tour** (with the arrows), I **HEAVILY** recommend setting it.
+
+If you don't know how to get your photo's heading, read [how to get a photo's heading 🟢](#getting-a-photos-heading-before-it-was-shot-) first.
 
 **3.**
 At the bottom now there is an optional field to set a placeId, which I **heavily recommend** you do - since this will associate the photo with a place instead of showing it as being an unknown place. You can check the [finding a placeId](#finding-a-placeid-) section. Also if you later need to find the photo's information, you can filter by the placeId
@@ -338,3 +349,18 @@ A **window will** open, which will look something like this (you may need to scr
 <img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./images/api-right-panel-fields.png" />
 
 Lastly, when you have all of the values and the body filled in, **click the execute button**. It might take a moment, but a **response will appear underneath**. The response will include a number - the **number 200 meaning it was correct**. Also - generally, the response includes the photo's ID if it was correct.
+
+## Getting a photo's heading before it was shot 🟢
+[⬆ Back to top](#top)
+
+The easiest way to get a photo's heading is to note it down **while you're actually taking the photo**. Before you start shooting, open your phone's **compass app** (most phones have one built in) and **face the direction your 360 app starts recording from** (this is usually the direction you're facing when you press the shutter/start button - check how your specific app works if you're not sure). **Write down the heading number the compass shows** - that's your photo's heading!
+
+It doesn't need to be perfectly precise - a few degrees off won't be noticeable.
+
+**How it would look in action:**
+1. Find a place where you'll be taking the 360 photo
+2. Face towards where you'll take **the first** photo
+3. Open the compass app and note down **the heading** - the number of degrees you're facing
+4. **Take** the first photo and continue with the rest of the sphere
+
+...And you're done! You have a 360 photo and its heading!
