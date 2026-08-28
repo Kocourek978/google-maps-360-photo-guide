@@ -118,14 +118,14 @@ When your photo gets uploaded, it will **NOT APPEAR** as a **blue circle (YET)**
 
 You will have to re-upload your photo.
 
-### Using the contributions tab 🟢
+### Deleting using the contributions tab 🟢
 This is the **easiest way** to delete photos. First, you must open the **contributions** tab on either your computer or on your phone in the Google maps app. To simplify this, you can just go here: https://www.google.com/maps/contrib/
 
 After that, navigate to the **photos section**. There, you'll see **all of your photos** you've ever uploaded. Scroll down to find your photo if it's old. When you find your photo, click on the **three dots** next to it and select delete. That's it!
 
 <img alt="A photo with three highlighted dots in the upper right corner" src="./images/contrib-tab-photo-three-dots.png"/>
 
-### Using the API 🟡
+### Deleting using the API 🟡
 Please **read** the [Using APIs - general guide 🟡](#using-apis---general-guide-) first if you haven't already. 
 
 For this, we are going to use the [photo.delete](https://developers.google.com/streetview/publish/reference/rest/v1/photo/delete) API.
