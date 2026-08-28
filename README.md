@@ -174,6 +174,51 @@ A **window will** open, which will look something like this (you may need to scr
 
 Lastly, when you have all of the values and the body filled in, **click the execute button**. It might take a moment, but a **response will appear underneath**. The response will include a number - the **number 200 meaning it was correct**. Also - generally, the response includes the photo's ID if it was correct.
 
+## Listing your uploaded photos 🟡
+[⬆ Back to top](#top)
+
+**PLEASE READ**
+
+This is useful if you want to see your photos' **current parameters and IDs**.
+
+If you only want to see your photos which you've taken and **don't care** about the parameters or IDs, I recommend using the **contributions section**:
+https://www.google.com/maps/contrib/
+
+After that, navigate to the **photos section**. There, you'll see **all of your photos** you've ever uploaded. Scroll down to find your photo if it's old.
+
+If you **do need** the parameters, continue on below.
+
+If you haven't already, please **read** the [Using APIs - general guide 🟡](#using-apis---general-guide-) first.
+
+We are going to use the [photos.list](https://developers.google.com/streetview/publish/reference/rest/v1/photos/list) API for this.
+
+For this API, you actually **don't need to fill-in** anything. You may **click execute** and it'll list all of your photos in a single JSON (100 of them).
+
+**IN THE JSON ITSELF:** You need to find your photo. 
+
+However, as you can image, that can be pretty annoying. If your photo has a **placeId** linked, you may use that to your advantage!
+
+You may filter the photos so it shows **only** the photos which have the same placeId filled.
+
+To put it simply: See only the photos you've taken at a specific location.
+
+If you don't know where to get the placeId of the place, please check [Finding a placeId 🟢](#finding-a-placeid-).
+
+
+
+When you have your placeId, look at the filter field. Edit this template with your placeId and enter it there.
+```
+placeId=YOUR_PLACE_ID
+```
+
+A filled-in example could be something like this:
+```
+placeId=ChIJQ9b_zXquEmsRY6cF2rm2v0M
+```
+
+Paste the edited template into the **filter field**. After that click **execute**!
+
+If no photos are returned, then either your placeId might be wrong OR there are no photos with the linked pladeId.
 ## Creating a photo tour / traverse-able photos workflow 🟡
 [⬆ Back to top](#top)
 
