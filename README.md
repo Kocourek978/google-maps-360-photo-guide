@@ -168,33 +168,43 @@ Now onto how to actually use them. Your page will open with **a lot of info** - 
 
 <img width="1920" height="1060" alt="Developers.google.com page with the API button highlighted on the right panel" src="./images/api-navigate-to-right-panel.png" />
 
-A **window will** open, which will look something like this (you may need to scroll up/down). The window has **three main parts** - **"Request parameters"**, where you will usually set things like the photo's ID. Then the **"Request body"** - you will usually find a template body in the API guide with some TEMPLATE_VARIABLES (indicated by the caps lock and underscores instead of spaces). You should **edit the template body** (eg. replace latitude/longitude text with actual values) and then you can **paste the whole body into the section** with two curly braces - just delete them and instead place the edited body template there. Lastly, the blue **"Execute" button** - when you open the page for the first time (or after a long time), it will ask you to **log in** and give it permission to edit things on your account. This is safe since this is google's official API - you need to **give the permissions** for everything to work. **YOU SHOULD ONLY ENTER THE PARAMETERS WHICH ARE IN THE GUIDE, OTHERWISE YOU MAY BREAK YOUR PHOTOS** - unless you read through the documentation on the pages and you understand how it works.
+A **window will** open, which will look something like this (you may need to scroll up/down). The window has **three main parts** - **"Request parameters"**, where you will usually set things like the photo's ID. Then the **"Request body"** - you will usually find a template body in the API guide with some TEMPLATE_VARIABLES (indicated by the caps lock and underscores instead of spaces). Not every API has all three - read-only ones like photos.list only show Request parameters and Execute, no body. You should **edit the template body** (e.g. replace latitude/longitude text with actual values) and then you can **paste the whole body into the section** with two curly braces - just delete them and instead place the edited body template there. Finally, the blue **"Execute" button** - when you open the page for the first time (or after a long time), it will ask you to **log in** and give it permission to edit things on your account. This is safe since this is Google's official API - you need to **give the permissions** for everything to work. **YOU SHOULD ONLY ENTER THE PARAMETERS WHICH ARE IN THE GUIDE, OTHERWISE YOU MAY BREAK YOUR PHOTOS** - unless you read through the documentation on the pages and you understand how it works.
 
 <img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./images/api-right-panel-fields.png" />
 
-Lastly, when you have all of the values and the body filled in, **click the execute button**. It might take a moment, but a **response will appear underneath**. The response will include a number - the **number 200 meaning it was correct**. Also - generally, the response includes the photo's ID if it was correct.
+Lastly, when you have all of the values and the body filled in, **click the execute button**. It might take a moment, but a **response will appear underneath**. The response will include a number - the **number 200 meaning it was correct**. Also - generally, the response includes the photo's ID if it was correct (or information). If the number is **NOT 200**, then you probably did something wrong. You should re-check the parameters and the request body.
 
-## Listing your uploaded photos 🟡
+## Listing your uploaded photos 🟢 - 🔴
 [⬆ Back to top](#top)
 
-**PLEASE READ**
-
-This is useful if you want to see your photos' **current parameters and IDs**.
+### Using the contributions tab 🟢
 
 If you only want to see your photos which you've taken and **don't care** about the parameters or IDs, I recommend using the **contributions section**:
 https://www.google.com/maps/contrib/
 
 After that, navigate to the **photos section**. There, you'll see **all of your photos** you've ever uploaded. Scroll down to find your photo if it's old.
 
-If you **do need** the parameters, continue on below.
+You'll see **all** photos - even non-360 ones. When you find it, you can **view** your photo by clicking on it. You can view the photo's location too. There are also options to **share** and **delete** the photo.
+
+<img alt="A photo with three highlighted dots in the upper right corner and a highlighted 360 symbol in the bottom right corner" src="./images/contrib-tab-photo-three-dots-and-360-symbol.png"/>
+
+If you **do need** the parameters (like the photo's ID), continue on below.
+
+### Using the API 🟡/🔴
+
+This is useful if you want to see your photos' **current parameters and IDs**.
 
 If you haven't already, please **read** the [Using APIs - general guide 🟡](#using-apis---general-guide-) first.
 
 We are going to use the [photos.list](https://developers.google.com/streetview/publish/reference/rest/v1/photos/list) API for this.
 
-For this API, you actually **don't need to fill-in** anything. You may **click execute** and it'll list all of your photos in a single JSON (100 of them).
+For this API, you actually **don't need to fill-in** anything. You may **click execute** and it'll list up to 100 of your photos in a single JSON. If you have more than 100 photos in the response, scroll down and find this part:
 
-**IN THE JSON ITSELF:** You need to find your photo. 
+```"nextPageToken": "YOU_NEED_THIS"```, for example ```"nextPageToken": "CJ7xN2mLQhcOae5T4pFRvBnKw2E"```
+
+Copy the string. Then go back up to the fields. There is a field called ```pageToken```. Paste the weird string into the field and execute again. This will give you the next page of the response - so another 100 photos.
+
+**IN THE JSON ITSELF:** You need to find your photo. Instructions are below the filter part.
 
 However, as you can image, that can be pretty annoying. If your photo has a **placeId** linked, you may use that to your advantage!
 
@@ -218,7 +228,97 @@ placeId=ChIJQ9b_zXquEmsRY6cF2rm2v0M
 
 Paste the edited template into the **filter field**. After that click **execute**!
 
-If no photos are returned, then either your placeId might be wrong OR there are no photos with the linked pladeId.
+If no photos are returned (or a different code than 200), then either your placeId might be wrong OR there are no photos with the linked placeId.
+
+#### How to actually find your photo in the JSON?
+
+This might be the **hardest part** for some people. If you've never heard of anything like JSON or are really not technical, I honestly recommend copying the output to an **AI** and talking with it (recommended for most people 🟡).
+
+To copy the output - click into the whole response body (below execute), **select everything** (you can use a keyboard shortcut like CTRL + A on Windows or COMMAND + A on Mac...) and then **copy** the whole output.
+
+If you want to go through the JSON yourself (🔴), I **heavily recommend** copying it and pasting it into a text editor.
+
+A JSON response will have **A LOT** of fields. Luckily, we don't need most of them. A full response will look something like this (you might have more or less fields depending on your photo):
+
+```json
+{
+  "photos": [
+    {
+      "photoId": {
+        "id": "CAoSLEFGMVFpcE1zYW1wbGVQaG90b0lkRXhhbXBsZTEyMzQ1Njc4OTBhYmNk"
+      },
+      "downloadUrl": "https://lh3.googleusercontent.com/gpms-cs-s/EXAMPLE_DOWNLOAD_TOKEN_1a2b3c4d5e6f7g8h9i0j==w0-h0-k-no-d",
+      "pose": {
+        "latLngPair": {
+          "latitude": 48.858093,
+          "longitude": 2.294694
+        },
+        "heading": 112.5,
+        "level": {}
+      },
+      "connections": [
+        {
+          "target": {
+            "id": "CAoSLEFGMVFpcE5leHRQaG90b0lkRXhhbXBsZTA5ODc2NTQzMjFsbW5vcA=="
+          }
+        }
+      ],
+      "captureTime": "2026-05-02T00:00:00Z",
+      "places": [
+        {
+          "placeId": "ChIJLU7jZClu5kcR4PcOOO6p3I0",
+          "name": "Champ de Mars",
+          "languageCode": "en"
+        }
+      ],
+      "thumbnailUrl": "https://lh3.googleusercontent.com/gpms-cs-s/EXAMPLE_DOWNLOAD_TOKEN_1a2b3c4d5e6f7g8h9i0j==w568-h256-k-no",
+      "viewCount": "342",
+      "shareLink": "https://www.google.com/maps/@48.858093,2.294694,3a,75y,112.5h,90t/data=!3m4!1e1!3m2!1sAF1QipMsamplePhotoIdExample!2e10",
+      "mapsPublishStatus": "PUBLISHED",
+      "uploadTime": "2026-05-10T09:30:00Z"
+    }
+  ]
+}
+```
+
+...Wow. That's a lot. And this is just for **one single photo**.
+
+First, we need to identify the photo. For that we don't actually need that many fields:
+```json
+{
+  "photos": [
+    {
+      "photoId": {
+        "id": "CAoSLEFGMVFpcE1zYW1wbGVQaG90b0lkRXhhbXBsZTEyMzQ1Njc4OTBhYmNk"
+      },
+      "pose": {
+        "latLngPair": {
+          "latitude": 48.858093,
+          "longitude": 2.294694
+        }
+      },
+      "captureTime": "2026-05-02T00:00:00Z",
+      "places": [
+        {
+          "placeId": "ChIJLU7jZClu5kcR4PcOOO6p3I0",
+          "name": "Champ de Mars",
+          "languageCode": "en"
+        }
+      ],
+      "shareLink": "https://www.google.com/maps/@48.858093,2.294694,3a,75y,112.5h,90t/data=!3m4!1e1!3m2!1sAF1QipMsamplePhotoIdExample!2e10",
+      "uploadTime": "2026-05-10T09:30:00Z"
+    }
+  ]
+}
+```
+Here, we can use the following fields to **identify the photo**:
+* **latitude and longitude** numbers - those are the coordinates of the photo.
+* **captureTime** and **uploadTime** - those are timestamps of when you took the photo and when you uploaded it.
+* **places** -> **name(s)** - those are the linked places (those you link using the placeId). You can use the names of the linked places, which can also be useful when you're trying to find your photo
+* **shareLink** - this is the share link of your photo. When you open it, you'll se your photo! This is best for confirming if it's the right one.
+
+When you **identify** which photo is yours, you can look at the whole response. Using the fields you see, you can get the information you need - for example the photo's ID or information about the photo like its heading!
+
 ## Creating a photo tour / traverse-able photos workflow 🟡
 [⬆ Back to top](#top)
 
