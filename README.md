@@ -231,6 +231,7 @@ Paste the edited template into the **filter field**. After that click **execute*
 If no photos are returned (or a different code than 200), then either your placeId might be wrong OR there are no photos with the linked placeId.
 
 #### How to actually find your photo in the JSON?
+------
 
 This might be the **hardest part** for some people. If you've never heard of anything like JSON or are really not technical, I honestly recommend copying the output to an **AI** and talking with it (recommended for most people 🟡).
 
@@ -318,6 +319,35 @@ Here, we can use the following fields to **identify the photo**:
 * **shareLink** - this is the share link of your photo. When you open it, you'll se your photo! This is best for confirming if it's the right one.
 
 When you **identify** which photo is yours, you can look at the whole response. Using the fields you see, you can get the information you need - for example the photo's ID or information about the photo like its heading!
+
+#### How to download your photos
+------
+Please **read** the [Listing your uploaded photos using the API](#using-the-api-) first if you haven't already.
+
+If you want to **download the 360 photo** you uploaded to Google, this is for you!
+
+Unlike the thumbnail or share link, this gives you the actual full-resolution photo file.
+
+To actually do this, prepare your request as you would normally (what was described above). You only have to change **one thing**.
+
+Look at the ```view``` parameter. There's nothing under it! Don't worry, that's normal. Click on the **empty field** under the view parameter. A drop down menu will appear. Select the option that says ```INCLUDE_DOWNLOAD_URL```.
+
+With the **option selected**, you may click **execute**!
+
+The result will look the same - with one tiny change. It will include a ```downloadUrl``` right under the photo's ID (you may look at the first example JSON response - it has that parameter).
+
+It will usually look something like this:
+```json
+"downloadUrl": "https://lh3.googleusercontent.com/gpms-cs-s/EXAMPLE_DOWNLOAD_TOKEN_1a2b3c4d5e6f7g8h9i0j==w0-h0-k-no-d"
+```
+
+Copy just the URL part inside the quotation marks - not the quotes themselves:
+
+```https://lh3.googleusercontent.com/gpms-cs-s/EXAMPLE_DOWNLOAD_TOKEN_1a2b3c4d5e6f7g8h9i0j==w0-h0-k-no-d```
+
+**Open the link** in your browser and your photo will get downloaded automatically. If that doesn't happen or show an error page (e.g. error 400), make sure to check if you copied the link **exactly** as it is in the response. It won't work otherwise (a single missing character might break it).
+
+And you're done!
 
 ## Creating a photo tour / traverse-able photos workflow 🟡
 [⬆ Back to top](#top)
