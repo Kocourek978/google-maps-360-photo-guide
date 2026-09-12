@@ -19,10 +19,28 @@ This is meant for **everyone** - **beginners** with little technical knowledge u
   * [Creating 360 photo spheres (phone) 🟢/🟡](#creating-360-photo-spheres-phone-)
   * [Uploading 360 photos to Google maps 🟢](#uploading-360-photos-to-google-maps-)
   * [Photos upload info/FAQ ⚪](#photos-upload-infofaq-)
+  * [A useful glossary ⚪](#a-useful-glossary-)
+  * [Deleting uploaded photos 🟢/🟡](#deleting-uploaded-photos-)
+    * [Deleting using the contributions tab 🟢](#deleting-using-the-contributions-tab-)
+    * [Deleting using the API 🟡](#deleting-using-the-api-)
   * [Finding a placeId 🟢](#finding-a-placeid-)
-  * [Creating a traverse-able photo tour workflow 🟡](#creating-a-photo-tour--traverse-able-photos-workflow-)
-  * [Linking two or more photos together](#creating-connections--linking-photos-)
+  * [Getting a photo's heading before it was shot 🟢](#getting-a-photos-heading-before-it-was-shot-)
   * [Using APIs - general guide 🟡](#using-apis---general-guide-)
+  * [Listing your uploaded photos 🟢 - 🔴](#listing-your-uploaded-photos----)
+    * [Using the contributions tab 🟢](#using-the-contributions-tab-)
+    * [Using the API 🟡/🔴](#using-the-api-)
+      * [How to actually find your photo in the JSON?](#how-to-actually-find-your-photo-in-the-json)
+      * [How to download your photos](#how-to-download-your-photos)
+  * [Updating photos' information 🟡](#updating-photos-information-)
+    * [Updating heading](#updating-heading)
+    * [Updating linked places (placeIDs)](#updating-linked-places-placeids)
+    * [Updating location](#updating-location)
+    * [Updating connections (Linking photos)](#updating-connections-linking-photos)
+      * [Single connections](#single-connections)
+      * [Multiple connections](#multiple-connections)
+    * [Updating pitch and roll](#updating-pitch-and-roll)
+    * [Updating level](#updating-level)
+    * [Updating altitude](#updating-altitude)
 
 ## Creating 360 photo spheres (phone) 🟢/🟡
 [⬆ Back to top](#top)
@@ -43,7 +61,6 @@ You can also use an app like [Hugin 🟡/🔴](https://hugin.sourceforge.io/) to
 If you are planning on making a **photo tour** OR you want your photo to **have a heading**, I recommend reading [how to get a photo's heading 🟢](#getting-a-photos-heading-before-it-was-shot-) first.
 
 When you have your app, you can take the 360 pictures using it! The method will **depend on the app**, but most apps usually work like this:
-autoplay loop muted playsinline
 You first take an initial photo somewhere around you - usually at the mid point. Then 4 points appear around the photo (top, right, left, bottom) - you aim your camera at one of the points and **it takes a photo** and new points get shown. You do this until there are no points left where you could take a picture - meaning you photographed the space around you which will then get stitched into a sphere!
 
 Here's a video showcasing the functionality of most 360 photo apps. This one is a screen recording of me using the Go Street View Photo Sphere app. Note that I wouldn't actually take the 360 picture like this - this is just a showcase of how it works.
@@ -94,16 +111,38 @@ Please check the [**Photos upload info/FAQ**](#photos-upload-infofaq-) section n
 ## Photos upload info/FAQ ⚪
 [⬆ Back to top](#top)
 
-When you upload a photo, you have to **wait a few minutes** for it to start displaying a photo and for it to appear in your contributions tab on Google maps. Just keep refreshing the page using **CTRL + F5** (make sure to refresh this way due to the cache) until you see your photo! On phones, try to either wait longer or clear your browser's cache if you don't see your photo yet. If you have set any **placeId's**, you should be able to see the photo when you view the place on maps (though if the place has a lot of photos yours might be buried deep between them) - also in a few minutes.
+When you upload a photo, you have to **wait a few minutes** for it to start displaying a photo and for it to appear in your contributions tab on Google maps. Just keep refreshing the page using **CTRL + F5** (make sure to refresh this way due to the cache) until you see your photo! On phones, try to either wait longer or clear your browser's cache if you don't see your photo yet. If you have set any **placeIds**, you should be able to see the photo when you view the place on maps (though if the place has a lot of photos yours might be buried deep between them) - also in a few minutes.
 
 When your photo gets uploaded, it will **NOT APPEAR** as a **blue circle (YET)**. It may take up to **three days** for your photo to appear as a blue circle on maps, if Google's algorithm deems it fit. There is no guarantee that it will appear as a blue circle, but from my testing, all of my photos did. You just have to be **patient**.
 
 ## A useful glossary ⚪
 [⬆ Back to top](#top)
 
-**Heading** - A number (in degrees) which shows where the **center** of the 360 picture is facing.
+### General concepts
 
-### APIs
+**Photo tour** - a set of connected 360 photos that people can walk through on Google Maps using the little arrows, similar to how Street View works on a road. This is what the "Creating connections" and "Heading/pose" parts of this guide are for.
+
+**Blue circle** - the blue dot/circle Google Maps shows on the map once a photo has been reviewed and accepted by Google's algorithm. A photo can be uploaded and viewable without one - the blue circle just means it's been "promoted" a bit further. See the [Photos upload info/FAQ](#photos-upload-infofaq-) section.
+
+**Contributions tab** - the page on Google Maps (found at [google.com/maps/contrib](https://www.google.com/maps/contrib/)) where you can see everything you've ever uploaded - photos, reviews, edits, etc. Several sections of this guide use it to find, view, or delete your photos.
+
+### Pose & positioning
+
+**Pose** - describes where a photo is and which way it's facing: its GPS location, its heading (direction), and how tilted the camera was when it was taken.
+
+**Heading** - a number (in degrees) which shows where the **center** of the 360 picture is facing.
+
+**Location (latLngPair)** - the GPS coordinates (latitude and longitude) of where the photo was taken.
+
+**Pitch** - how far up or down the center of the photo is tilted, between **-90** (straight down) and **90** (straight up).
+
+**Roll** - how tilted the camera was sideways, between **0** and **360** degrees, where **0** means level with the horizon.
+
+**Level** - which floor of a building the photo was taken on. Used so Google Maps can show a floor switcher and let people navigate up and down between floors in an indoor photo tour.
+
+**Altitude** - how high up the photo was taken, in meters. Not the same as level - this doesn't affect floor switching, it's just a raw height value.
+
+### IDs & places
 
 **An ID** - a unique identifier used so the server can identify the correct picture. It's usually a weird long thing because it has to be unique.
 
@@ -111,9 +150,37 @@ When your photo gets uploaded, it will **NOT APPEAR** as a **blue circle (YET)**
 
 **placeId** - an ID for a place. It identifies the place and it's unique to that place only.
 
-**Connection(s)** - tell Google which photos should be linked together - which photos should be connected.
+**Connection(s)** - tell Google which photos should be linked together - which photos should be connected. This is what creates the walk-able arrows in a photo tour.
 
-**Pose** - describes where a photo is and which way it's facing: its GPS location, its heading (direction), and how tilted the camera was when it was taken.
+### Using the APIs
+
+**API Explorer** - the interactive panel on the right side of a developers.google.com API page (the one this guide has you click into) where you can fill in fields and send a real API request without writing any code.
+
+**Request parameters** - the fields near the top of the API Explorer panel, usually used for things like the photo's ID.
+
+**Request body** - the JSON template you edit and paste into the API Explorer to tell the API what you actually want to change.
+
+**Execute button** - the blue button in the API Explorer that actually sends your request to Google.
+
+**updateMask** - a field you fill in (as part of the Request parameters) when you're updating a photo that tells the `photo.update` API exactly which piece of information you want to change - for example, `pose.heading` if you're only updating the heading. Without it, you'd risk overwriting other fields you didn't mean to touch.
+
+### Photo JSON fields
+
+These are fields you'll see when looking at a photo's information in a JSON response (see [How to actually find your photo in the JSON?](#how-to-actually-find-your-photo-in-the-json)).
+
+**downloadUrl** - a link to download the actual full-resolution photo file. Only shows up if you set the `view` parameter to `INCLUDE_DOWNLOAD_URL`.
+
+**shareLink** - a link that opens the photo directly on Google Maps. Useful for double-checking you've found the right photo in a big JSON response.
+
+**thumbnailUrl** - a link to a small preview image of the photo.
+
+**captureTime** - the timestamp of when the photo was actually taken.
+
+**uploadTime** - the timestamp of when the photo was uploaded to Google.
+
+**viewCount** - how many times the photo has been viewed.
+
+**mapsPublishStatus** - whether the photo has been published to Google Maps or rejected.
 
 ## Deleting uploaded photos 🟢/🟡
 [⬆ Back to top](#top)
@@ -172,7 +239,13 @@ Now onto how to actually use them. Your page will open with **a lot of info** - 
 
 <img width="1920" height="1060" alt="Developers.google.com page with the API button highlighted on the right panel" src="./assets/api-navigate-to-right-panel.png" />
 
-A **window will** open, which will look something like this (you may need to scroll up/down). The window has **three main parts** - **"Request parameters"**, where you will usually set things like the photo's ID. Then the **"Request body"** - you will usually find a template body in the API guide with some TEMPLATE_VARIABLES (indicated by the caps lock and underscores instead of spaces). Not every API has all three - read-only ones like photos.list only show Request parameters and Execute, no body. You should **edit the template body** (e.g. replace latitude/longitude text with actual values) and then you can **paste the whole body into the section** with two curly braces - just delete them and instead place the edited body template there. Finally, the blue **"Execute" button** - when you open the page for the first time (or after a long time), it will ask you to **log in** and give it permission to edit things on your account. This is safe since this is Google's official API - you need to **give the permissions** for everything to work. **YOU SHOULD ONLY ENTER THE PARAMETERS WHICH ARE IN THE GUIDE, OTHERWISE YOU MAY BREAK YOUR PHOTOS** - unless you read through the documentation on the pages and you understand how it works.
+A **window will** open, which will look something like this (you may need to scroll up/down). The window has **three main parts** - **"Request parameters"**, where you will usually set things like the photo's ID. Then the **"Request body"** - you will usually find a template body in the API guide with some TEMPLATE_VARIABLES (indicated by the caps lock and underscores instead of spaces). 
+
+Not every API has all three - read-only ones like photos.list only show Request parameters and Execute, no body. You should **edit the template body** (e.g. replace latitude/longitude text with actual values) and then you can **paste the whole body into the section** with two curly braces - just delete them and instead place the edited body template there. 
+
+Finally, the blue **"Execute" button** - when you open the page for the first time (or after a long time), it will ask you to **log in** and give it permission to edit things on your account. This is safe since this is Google's official API - you need to **give the permissions** for everything to work. 
+
+**YOU SHOULD ONLY ENTER THE PARAMETERS WHICH ARE IN THE GUIDE, OTHERWISE YOU MAY BREAK YOUR PHOTOS** - unless you read through the documentation on the pages and you understand how it works.
 
 <img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./assets/api-right-panel-fields.png" />
 
@@ -202,15 +275,17 @@ If you haven't already, please **read** the [Using APIs - general guide 🟡](#u
 
 We are going to use the [photos.list](https://developers.google.com/streetview/publish/reference/rest/v1/photos/list) API for this.
 
-For this API, you actually **don't need to fill-in** anything. You may **click execute** and it'll list up to 100 of your photos in a single JSON. If you have more than 100 photos in the response, scroll down and find this part:
+For this API, you actually **don't need to fill-in** anything. You may **click execute** and it'll list up to 100 of your photos in a single JSON. If you have **more than 100 photos** in the response, scroll down and find this part:
 
 ```"nextPageToken": "YOU_NEED_THIS"```, for example ```"nextPageToken": "CJ7xN2mLQhcOae5T4pFRvBnKw2E"```
 
 Copy the string. Then go back up to the fields. There is a field called ```pageToken```. Paste the weird string into the field and execute again. This will give you the next page of the response - so another 100 photos.
 
+**Warning / side note**: Google's API docs show the ```view``` parameter as **required**. From my testing of executing the API requests on the web app, it's **not required**. If however it doesn't work for you, set the ```view``` parameter to ```BASIC``` or ```INCLUDE_DOWNLOAD_URL``` if you want to download them. I would recommend setting it for any manual API requests outside of the web app.
+
 **IN THE JSON ITSELF:** You need to find your photo. Instructions are below the filter part.
 
-However, as you can image, that can be pretty annoying. If your photo has a **placeId** linked, you may use that to your advantage!
+However, as you can imagine, that can be pretty annoying. If your photo has a **placeId** linked, you may use that to your advantage!
 
 You may filter the photos so it shows **only** the photos which have the same placeId filled.
 
@@ -353,12 +428,6 @@ Copy just the URL part inside the quotation marks - not the quotes themselves:
 
 And you're done!
 
-## Creating a photo tour / traverse-able photos workflow 🟡
-[⬆ Back to top](#top)
-
-If you want to create a photo tour (like the street view images with arrows), here is how to do it.
-First, [upload your photos](#uploading-360-photos-to-google-maps-) and **remember their IDs** - up to you on how you do it. Make sure to set the **Heading/pose**. If you already have the photos uploaded and have their IDs, you can continue below.
-
 ## Updating photos' information 🟡
 [⬆ Back to top](#top)
 
@@ -402,7 +471,7 @@ A complete **filled-in example** might look like this:
 
 <img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./assets/example-api-update-heading-filled.png" />
 
-### Updating the linked places (placeIDs)
+### Updating linked places (placeIDs)
 Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
 
 In the updateMask field, type out ```places```.
@@ -456,7 +525,7 @@ A complete **filled-in example** might look like this:
 
 <img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./assets/example-api-update-places-filled.png" />
 
-### Updating the location
+### Updating location
 Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
 
 In the updateMask field, type out ```pose.lat_lng_pair```.
@@ -511,17 +580,17 @@ For only one connection, the body will look like this:
   "connections": [
     {
       "target": {
-        "id": "ID_OF_PHOTO_WHICH_YOU_WANT_TO_CONNENCT"
+        "id": "ID_OF_PHOTO_WHICH_YOU_WANT_TO_CONNECT"
       }
     }
   ]
 }
 ```
-Replace ```ID_OF_PHOTO_WHICH_YOU_WANT_TO_CONNENCT``` with the ID of the photo you want to connect. If you have photo A and photo B and you want to connect photo A to photo B, you will type photo A's ID in the **request parameters field** and photo B's ID in the **request body**.
+Replace ```ID_OF_PHOTO_WHICH_YOU_WANT_TO_CONNECT``` with the ID of the photo you want to connect. If you have photo A and photo B and you want to connect photo A to photo B, you will type photo A's ID in the **request parameters field** and photo B's ID in the **request body**.
 
 **YOU WILL HAVE TO DO THIS REQUEST MULTIPLE TIMES - IF YOU WANT TO CONNECT TWO PHOTOS, YOU WILL HAVE TO DO THIS FOR PHOTO A AND THEN FOR PHOTO B**
 
-Let's look at an example. Let's say we want to link a photo with the ID ```CAoSHUFGMVFpcE16elR1dG9yaWFsU2FtcGxlSWQ5ODc2``` to the photo with the ID ```CAoSHEFGMVFpcE5leGFtcGxlRmFrZUlEMTIzNDU2Nzg.```. We will first have to **fill the first id** filed (under Request parameters) to the first photo's id. We then set the mask to ```connections```. Lastly, we will then **edit the body** template to have the second photo's ID:
+Let's look at an example. Let's say we want to link a photo with the ID ```CAoSHUFGMVFpcE16elR1dG9yaWFsU2FtcGxlSWQ5ODc2``` to the photo with the ID ```CAoSHEFGMVFpcE5leGFtcGxlRmFrZUlEMTIzNDU2Nzg.```. We will first have to **fill the first id** field (under Request parameters) to the first photo's id. We then set the mask to ```connections```. Lastly, we will then **edit the body** template to have the second photo's ID:
 ```json
 {
   "connections": [
@@ -549,12 +618,12 @@ This is almost the same as single connections, except you edit the body to have 
   "connections": [
     {
       "target": {
-        "id": "ID_OF_THE_FIRST_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+        "id": "ID_OF_THE_FIRST_PHOTO_WHICH_YOU_WANT_TO_CONNECT"
       }
     },
     {
       "target": {
-        "id": "ID_OF_THE_SECOND_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+        "id": "ID_OF_THE_SECOND_PHOTO_WHICH_YOU_WANT_TO_CONNECT"
       }
     }
   ]
@@ -567,20 +636,134 @@ For three links:
   "connections": [
     {
       "target": {
-        "id": "ID_OF_THE_FIRST_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+        "id": "ID_OF_THE_FIRST_PHOTO_WHICH_YOU_WANT_TO_CONNECT"
       }
     },
     {
       "target": {
-        "id": "ID_OF_THE_SECOND_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+        "id": "ID_OF_THE_SECOND_PHOTO_WHICH_YOU_WANT_TO_CONNECT"
       }
     },
     {
       "target": {
-        "id": "ID_OF_THE_THIRD_PHOTO_WHICH_YOU_WANT_TO_CONENCT"
+        "id": "ID_OF_THE_THIRD_PHOTO_WHICH_YOU_WANT_TO_CONNECT"
       }
     }
   ]
 }
 ```
 ... and so on. The rest of the request (first id, updateMask) stays the same. **Don't forget to do this for all of the photos!**
+
+### Updating pitch and roll
+Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
+
+Note: I don't have personal experience with this topic, so some of the information might be slightly wrong.
+
+In the updateMask field, type out ```pose.pitch,pose.roll```.
+By doing this, we tell the API that we want to update the photo's pitch and roll.
+
+**Pitch** is how far up or down the center of the photo is tilted - a value between **-90** (looking straight down) and **90** (looking straight up). **Roll** is how tilted the camera was sideways, measured in degrees between **0** and **360**, where **0** means level with the horizon.
+
+Most people **won't need** to touch these - if your photo already looks right when you view it, you probably don't need to set them. This is mainly useful if your photo tour/spheres look slightly tilted or "off" and you want to correct it manually.
+
+For the request body, just **edit this template** and **replace** ```YOUR_PITCH_NUMBER``` and ```YOUR_ROLL_NUMBER``` with your values.
+
+```json
+{
+  "pose": {
+    "pitch": YOUR_PITCH_NUMBER,
+    "roll": YOUR_ROLL_NUMBER
+  }
+}
+```
+
+A filled-in template example might look like this:
+
+```json
+{
+  "pose": {
+    "pitch": 0,
+    "roll": 2.5
+  }
+}
+```
+
+**Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
+
+A complete **filled-in example** might look like this:
+
+<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./assets/example-api-update-pitch-roll-filled.png" />
+
+### Updating level
+Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
+
+Note: I don't have personal experience with this topic, so some of the information might be slightly wrong.
+
+In the updateMask field, type out ```pose.level```.
+By doing this, we tell the API that we want to update the photo's level.
+
+**Level** is which **floor** of a building the photo was taken on - useful if you're photographing somewhere like a mall or an office building with multiple floors, since this is what lets Google Maps show a **floor switcher** and let people navigate **up and down** between floors in your tour. It needs a **number** (0 = ground floor, 1 = first floor above ground, -1 = first floor below ground, and so on) and a **name** (max 3 characters - think of how an elevator button for that floor would be labeled).
+
+You only need this if you're doing an **indoor, multi-floor** photo tour and want floor-to-floor navigation to work. A single-floor or outdoor tour doesn't need it.
+
+For the request body, just **edit this template** and **replace** ```YOUR_LEVEL_NUMBER``` and ```YOUR_LEVEL_NAME``` with your values.
+
+```json
+{
+  "pose": {
+    "level": {
+      "number": YOUR_LEVEL_NUMBER,
+      "name": "YOUR_LEVEL_NAME"
+    }
+  }
+}
+```
+
+A filled-in template example might look like this:
+
+```json
+{
+  "pose": {
+    "level": {
+      "number": 1,
+      "name": "1F"
+    }
+  }
+}
+```
+
+**Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
+
+### Updating altitude
+Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
+
+Note: I don't have personal experience with this topic, so some of the information might be slightly wrong.
+
+In the updateMask field, type out ```pose.altitude```.
+By doing this, we tell the API that we want to update the photo's altitude.
+
+**Altitude** is simply how high up the photo was taken, measured in **meters**. Unlike `level`, this isn't tied to floor navigation - it's just a raw height value stored on the photo's pose, similar to latitude/longitude but for the vertical axis.
+
+**Honestly, it's not entirely clear what visible effect this has** - Google's documentation doesn't go into detail beyond the field definition. Set it if you happen to have accurate altitude data and want the photo's metadata to be complete, but feel free to skip it if you're not sure - it isn't required for a photo tour to work.
+
+For the request body, just **edit this template** and **replace** ```YOUR_ALTITUDE_NUMBER``` with your value.
+
+```json
+{
+  "pose": {
+    "altitude": YOUR_ALTITUDE_NUMBER
+  }
+}
+```
+
+A filled-in template example might look like this:
+
+```json
+{
+  "pose": {
+    "altitude": 12.5
+  }
+}
+```
+
+**Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
