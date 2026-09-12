@@ -43,8 +43,12 @@ You can also use an app like [Hugin 🟡/🔴](https://hugin.sourceforge.io/) to
 If you are planning on making a **photo tour** OR you want your photo to **have a heading**, I recommend reading [how to get a photo's heading 🟢](#getting-a-photos-heading-before-it-was-shot-) first.
 
 When you have your app, you can take the 360 pictures using it! The method will **depend on the app**, but most apps usually work like this:
-
+autoplay loop muted playsinline
 You first take an initial photo somewhere around you - usually at the mid point. Then 4 points appear around the photo (top, right, left, bottom) - you aim your camera at one of the points and **it takes a photo** and new points get shown. You do this until there are no points left where you could take a picture - meaning you photographed the space around you which will then get stitched into a sphere!
+
+Here's a video showcasing the functionality of most 360 photo apps. This one is a screen recording of me using the Go Street View Photo Sphere app. Note that I wouldn't actually take the 360 picture like this - this is just a showcase of how it works.
+
+<img width="300" alt="Screen recording of taking a part of a 360-degree photo sphere with the Go Street View Photo Sphere app on Android" src="https://github.com/user-attachments/assets/a7cbe090-977c-4ce0-801d-f0ff91f3e0fa" />
 
 I personally like to take photos by first doing one circle around the middle part (always going either left or right), then doing a second circle on the bottom (take one photo on the bottom and again keep going left or right from the new photo's points) and then do the same for the top. I then fill in the rest of the sky and usually **don't** take a photo of the space right **at the bottom** (so my legs aren't there - **BUT** your photo app **might require** you take that photo).
 
@@ -59,13 +63,13 @@ Here I will try to explain how to use it.
 
 When you first open the site, you will have to **log in** using your **Google account**. Log in and grant it the necessary permissions.
 
-<img alt="PhotoSphereStudio page with the login button highlighted" src="./images/photospherestudio-login-button.png" />
+<img alt="PhotoSphereStudio page with the login button highlighted" src="./assets/photospherestudio-login-button.png" />
 
 After that, you are able to add an image. When you do, the website automatically **loads the information** from it like the coordinates (if there are any).
 
-<img alt="PhotoSphereStudio page with the upload button and field highlighted" src="./images/photospherestudio-add-image-showcase.png" />
+<img alt="PhotoSphereStudio page with the upload button and field highlighted" src="./assets/photospherestudio-add-image-showcase.png" />
 
-<img alt="PhotoSphereStudio page with all of the photo's settings highlighted into 4 steps and also with the advanced options button highlighted." src="./images/photospherestudio-image-options-steps.png" />
+<img alt="PhotoSphereStudio page with all of the photo's settings highlighted into 4 steps and also with the advanced options button highlighted." src="./assets/photospherestudio-image-options-steps.png" />
 
 **1.**
 You can always set custom coordinates - either because the website didn't detect any or because you want a more precise location for the photo.
@@ -123,7 +127,7 @@ This is the **easiest way** to delete photos. First, you must open the **contrib
 
 After that, navigate to the **photos section**. There, you'll see **all of your photos** you've ever uploaded. Scroll down to find your photo if it's old. When you find your photo, click on the **three dots** next to it and select delete. That's it!
 
-<img alt="A photo with three highlighted dots in the upper right corner" src="./images/contrib-tab-photo-three-dots.png"/>
+<img alt="A photo with three highlighted dots in the upper right corner" src="./assets/contrib-tab-photo-three-dots.png"/>
 
 ### Deleting using the API 🟡
 Please **read** the [Using APIs - general guide 🟡](#using-apis---general-guide-) first if you haven't already. 
@@ -137,14 +141,14 @@ Simply prepare your photoId and put it in the "photoId" field. Then click execut
 
 I recommend using [this website](https://geo-devrel-javascript-samples.web.app/samples/places-placeid-finder/app/dist/) to find the placeId. Just open it, search for your place in the top left, select it and then copy the placeId from the map. Warning - you **HAVE to SEARCH** for it, just finding it and clicking on it won't give you the placeId.
 
-<img alt="A map on which there are three steps highlighted - searching for the place, clicking on the search result and copying the place ID" src="./images/get-placeid-page-search-overview.png" />
+<img alt="A map on which there are three steps highlighted - searching for the place, clicking on the search result and copying the place ID" src="./assets/get-placeid-page-search-overview.png" />
 
 ## Getting a photo's heading before it was shot 🟢
 [⬆ Back to top](#top)
 
 The easiest way to get a photo's heading is to note it down **while you're actually taking the photo**. Before you start shooting, open your phone's **compass app** (most phones have one built in) and **face the direction your 360 app starts recording from** (this is usually the direction you're facing when you press the shutter/start button - check how your specific app works if you're not sure). **Write down the heading number the compass shows** - that's your photo's heading!
 
-<img width="300" height="600" alt="A compass app showing the compass and a heading of 72 degrees" src="./images/phone-compass-app-example.png" />
+<img width="300" height="600" alt="A compass app showing the compass and a heading of 72 degrees" src="./assets/phone-compass-app-example.png" />
 Image example: the heading number here would be 72.
 
 It doesn't need to be perfectly precise - a few degrees off won't be noticeable.
@@ -166,11 +170,11 @@ For using the APIs, I recommend doing this on **a laptop**. If you are using a p
 
 Now onto how to actually use them. Your page will open with **a lot of info** - fortunately you can **ignore most of it**. Focus on the **panel on the right** and **click the API button**.
 
-<img width="1920" height="1060" alt="Developers.google.com page with the API button highlighted on the right panel" src="./images/api-navigate-to-right-panel.png" />
+<img width="1920" height="1060" alt="Developers.google.com page with the API button highlighted on the right panel" src="./assets/api-navigate-to-right-panel.png" />
 
 A **window will** open, which will look something like this (you may need to scroll up/down). The window has **three main parts** - **"Request parameters"**, where you will usually set things like the photo's ID. Then the **"Request body"** - you will usually find a template body in the API guide with some TEMPLATE_VARIABLES (indicated by the caps lock and underscores instead of spaces). Not every API has all three - read-only ones like photos.list only show Request parameters and Execute, no body. You should **edit the template body** (e.g. replace latitude/longitude text with actual values) and then you can **paste the whole body into the section** with two curly braces - just delete them and instead place the edited body template there. Finally, the blue **"Execute" button** - when you open the page for the first time (or after a long time), it will ask you to **log in** and give it permission to edit things on your account. This is safe since this is Google's official API - you need to **give the permissions** for everything to work. **YOU SHOULD ONLY ENTER THE PARAMETERS WHICH ARE IN THE GUIDE, OTHERWISE YOU MAY BREAK YOUR PHOTOS** - unless you read through the documentation on the pages and you understand how it works.
 
-<img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./images/api-right-panel-fields.png" />
+<img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./assets/api-right-panel-fields.png" />
 
 Lastly, when you have all of the values and the body filled in, **click the execute button**. It might take a moment, but a **response will appear underneath**. The response will include a number - the **number 200 meaning it was correct**. Also - generally, the response includes the photo's ID if it was correct (or information). If the number is **NOT 200**, then you probably did something wrong. You should re-check the parameters and the request body.
 
@@ -186,7 +190,7 @@ After that, navigate to the **photos section**. There, you'll see **all of your 
 
 You'll see **all** photos - even non-360 ones. When you find it, you can **view** your photo by clicking on it. You can view the photo's location too. There are also options to **share** and **delete** the photo.
 
-<img alt="A photo with three highlighted dots in the upper right corner and a highlighted 360 symbol in the bottom right corner" src="./images/contrib-tab-photo-three-dots-and-360-symbol.png"/>
+<img alt="A photo with three highlighted dots in the upper right corner and a highlighted 360 symbol in the bottom right corner" src="./assets/contrib-tab-photo-three-dots-and-360-symbol.png"/>
 
 If you **do need** the parameters (like the photo's ID), continue on below.
 
@@ -364,7 +368,7 @@ Once a photo is uploaded, you can update almost anything about it - its connecti
 
 When you open the API's page, you will see three important fields - below "Request parameters", there is **"id" and "updateMask"**. In the id field (field below id), paste the **photo's whole ID** (the photo whose information you want to update). You will be told what to put in the updateMask field based on what you want to update.
 
-<img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./images/api-right-panel-fields.png" />
+<img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./assets/api-right-panel-fields.png" />
 
 ### Updating heading
 Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
@@ -396,7 +400,7 @@ A filled-in template example might look like this:
 
 A complete **filled-in example** might look like this:
 
-<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./images/example-api-update-heading-filled.png" />
+<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./assets/example-api-update-heading-filled.png" />
 
 ### Updating the linked places (placeIDs)
 Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
@@ -450,7 +454,7 @@ Note: it **doesn't matter** which place you put first. You can also **continue t
 
 A complete **filled-in example** might look like this:
 
-<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./images/example-api-update-places-filled.png" />
+<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./assets/example-api-update-places-filled.png" />
 
 ### Updating the location
 Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
@@ -484,7 +488,7 @@ A filled-in template example might look like this:
 
 An example of how it might look like filled in:
 
-<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./images/example-api-update-latlng-pair-filled.png" />
+<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./assets/example-api-update-latlng-pair-filled.png" />
 
 **Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
 
@@ -532,7 +536,7 @@ Let's look at an example. Let's say we want to link a photo with the ID ```CAoSH
 
 How it looks on the website (some of the IDs are cut off because of the length):
 
-<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./images/example-api-update-connections-filled.png" />
+<img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./assets/example-api-update-connections-filled.png" />
 
 **Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
 
