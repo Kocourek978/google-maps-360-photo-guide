@@ -67,6 +67,7 @@ If you want to build a street view like tour. Same as [Just want to upload a pho
     * [Updating pitch and roll](#updating-pitch-and-roll)
     * [Updating level](#updating-level)
     * [Updating altitude](#updating-altitude)
+  * [A note on this guide ⚪](#a-note-on-this-guide-)
 -----
 ## Creating 360 photo spheres (phone) 🟢/🟡
 [⬆ Back to top](#top)
@@ -799,3 +800,11 @@ A filled-in template example might look like this:
 ```
 
 **Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
+
+
+## A note on this guide ⚪
+[⬆ Back to top](#top)
+
+Most of this guide is info from my **personal experience**. I still want to be honest and say that AI was used in some sections of this tutorial. However, it had the correct resources and every output was reviewed by me - meaning it's not some AI slop. Still there may be some **mistakes**, because **no one is perfect**.
+
+If you find any mistakes or if you want to update the guide - don't hesitate to **submit a PR**. If you didn't understand a section of the guide, you can try to update the section so other people can understand it better! Simply **don't be afraid to contribute** :)
