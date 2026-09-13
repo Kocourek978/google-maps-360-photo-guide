@@ -14,6 +14,32 @@ This is meant for **everyone** - **beginners** with little technical knowledge u
 
 **Don't let these symbols scare or discourage you though!**
 
+## New to this? Start here!
+This is for people who are new to this. It's **in order** - pick the path that matches your goal, then follow the steps from top to bottom. The full **TOC is below** this section if you need it.
+
+### Just want to upload a photo to Google maps?
+* [Creating 360 photo spheres (phone) 🟢/🟡](#creating-360-photo-spheres-phone-) (if you already have a photo, you can skip this section)
+* [Uploading 360 photos to Google maps 🟢](#uploading-360-photos-to-google-maps-)
+
+After that, I recommend reading [Photos upload info/FAQ ⚪](#photos-upload-infofaq-)
+
+...And if you want to delete your photo: [Deleting uploaded photos 🟢/🟡](#deleting-uploaded-photos-)
+
+### Want the photo to be properly tied to a place on maps?
+* [Creating 360 photo spheres (phone) 🟢/🟡](#creating-360-photo-spheres-phone-) (if you already have a photo, you can skip this section)
+* [Finding a placeId 🟢](#finding-a-placeid-) - do this **before** uploading, so you have it ready to paste in
+* [Uploading 360 photos to Google maps 🟢](#uploading-360-photos-to-google-maps-) - paste your placeId in during step 3
+
+**Already uploaded a photo without a placeId?** You can still add one after the fact using the API:
+* [Using APIs - general guide 🟡](#using-apis---general-guide-)
+* [Updating linked places (placeIDs) 🟡](#updating-linked-places-placeids)
+
+### Want to build a walkable tour with multiple connected photos?
+If you want to build a street view like tour. Same as [Just want to upload a photo to Google maps](#just-want-to-upload-a-photo-to-google-maps), **plus**:
+* [Getting a photo's heading before it was shot 🟢](#getting-a-photos-heading-before-it-was-shot-) - **IMPORTANT**: this is BEFORE the photo was shot! Read this first!
+* [Using APIs - general guide 🟡](#using-apis---general-guide-)
+* [Updating connections (Linking photos) 🟡](#updating-connections-linking-photos)
+-----
 ### Table of contents
 
   * [Creating 360 photo spheres (phone) 🟢/🟡](#creating-360-photo-spheres-phone-)
@@ -26,7 +52,7 @@ This is meant for **everyone** - **beginners** with little technical knowledge u
   * [Finding a placeId 🟢](#finding-a-placeid-)
   * [Getting a photo's heading before it was shot 🟢](#getting-a-photos-heading-before-it-was-shot-)
   * [Using APIs - general guide 🟡](#using-apis---general-guide-)
-  * [Listing your uploaded photos 🟢 - 🔴](#listing-your-uploaded-photos----)
+  * [Listing your uploaded photos 🟢/🟡/🔴](#listing-your-uploaded-photos-)
     * [Using the contributions tab 🟢](#using-the-contributions-tab-)
     * [Using the API 🟡/🔴](#using-the-api-)
       * [How to actually find your photo in the JSON?](#how-to-actually-find-your-photo-in-the-json)
@@ -41,7 +67,7 @@ This is meant for **everyone** - **beginners** with little technical knowledge u
     * [Updating pitch and roll](#updating-pitch-and-roll)
     * [Updating level](#updating-level)
     * [Updating altitude](#updating-altitude)
-
+-----
 ## Creating 360 photo spheres (phone) 🟢/🟡
 [⬆ Back to top](#top)
 
@@ -104,7 +130,7 @@ If you don't know how to get your photo's heading, read [how to get a photo's he
 At the bottom now there is an optional field to set a placeId, which I **heavily recommend** you do - since this will associate the photo with a place instead of showing it as being an unknown place. You can check the [finding a placeId](#finding-a-placeid-) section. Also if you later need to find the photo's information, you can filter by the placeId
 
 **4.**
-Then you are **ready to upload the photo** - click on the "Upload" button and wait a bit for the website to process it. If you did everything right, will get a link for Google maps! You can also click the debug information option, where you will find the **ID of the photo**, which may be useful for other things in this guide.
+Then you are **ready to upload the photo** - click on the "Upload" button and wait a bit for the website to process it. If you did everything right, you will get a link for Google maps! You can also click the debug information option, where you will find the **ID of the photo**, which may be useful for other things in this guide.
 
 Please check the [**Photos upload info/FAQ**](#photos-upload-infofaq-) section now!
 
@@ -249,9 +275,9 @@ Finally, the blue **"Execute" button** - when you open the page for the first ti
 
 <img width="486" height="1003" alt="APIs Explorer panel showing Request parameters, Request body, and Execute button" src="./assets/api-right-panel-fields.png" />
 
-Lastly, when you have all of the values and the body filled in, **click the execute button**. It might take a moment, but a **response will appear underneath**. The response will include a number - the **number 200 meaning it was correct**. Also - generally, the response includes the photo's ID if it was correct (or information). If the number is **NOT 200**, then you probably did something wrong. You should re-check the parameters and the request body.
+Lastly, when you have all of the values and the body filled in, **click the execute button**. It might take a moment, but a **response will appear underneath**. The response will include a number - the **number 200 meaning it was correct**. Also - generally, the response includes the photo's ID if it was correct, or some other information about the photo. If the number is **NOT 200**, then you probably did something wrong. You should re-check the parameters and the request body.
 
-## Listing your uploaded photos 🟢 - 🔴
+## Listing your uploaded photos 🟢/🟡/🔴
 [⬆ Back to top](#top)
 
 ### Using the contributions tab 🟢
@@ -433,6 +459,8 @@ And you're done!
 
 We are going to use the [photo.update](https://developers.google.com/streetview/publish/reference/rest/v1/photo/update) API for this. Don't worry - it's not going to be hard. Please **read** the [Using APIs - general guide 🟡](#using-apis---general-guide-) first.
 
+Note: for list-type fields - connections and places - updating **REPLACES THE ENTIRE LIST**, it doesn't add to it. If the photo already has connections or places you want to keep, include them in the body along with the new ones, or they'll be removed.
+
 Once a photo is uploaded, you can update almost anything about it - its connections, its heading/pose, or the placeId it's linked to - without re-uploading it. All of this is done with the same photos.update API, just with a different updateMask and request body depending on what you want to change.
 
 When you open the API's page, you will see three important fields - below "Request parameters", there is **"id" and "updateMask"**. In the id field (field below id), paste the **photo's whole ID** (the photo whose information you want to update). You will be told what to put in the updateMask field based on what you want to update.
@@ -502,6 +530,8 @@ A filled-in template example might look like this:
   ]
 }
 ```
+
+**Keep in mind** that if your photo already has some places linked, this will **NOT append** them - it will **replace** them!
 
 **Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
 
@@ -606,6 +636,8 @@ Let's look at an example. Let's say we want to link a photo with the ID ```CAoSH
 How it looks on the website (some of the IDs are cut off because of the length):
 
 <img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./assets/example-api-update-connections-filled.png" />
+
+**Keep in mind** that if your photo already has some connections (photos) linked, this will **not append** them - it will **replace** them.
 
 **Paste** your filled-in body into the "Request body" field (or first paste it and then edit it) and feel free to **press** the **execute button**!
 
