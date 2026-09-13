@@ -1,5 +1,10 @@
 # A comprehensive guide to 360 photos on Google maps
 <a name="top"></a>
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+![Tutorial](https://img.shields.io/badge/type-tutorial-blue)
+![Last commit](https://img.shields.io/github/last-commit/Kocourek978/google-maps-360-photo-guide)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Kocourek978/google-maps-360-photo-guide/pulls)
+
 A how to guide on **creating**, **uploading** and **updating** 360 photos on Google maps with **no API key needed!**
 
 This is meant for **everyone** - **beginners** with little technical knowledge up to **professionals**.
@@ -68,6 +73,7 @@ If you want to build a street view like tour. Same as [Just want to upload a pho
     * [Updating level](#updating-level)
     * [Updating altitude](#updating-altitude)
   * [A note on this guide ⚪](#a-note-on-this-guide-)
+  * [License ⚪](#license-)
 -----
 ## Creating 360 photo spheres (phone) 🟢/🟡
 [⬆ Back to top](#top)
@@ -82,7 +88,7 @@ Some people also use the **deprecated** [Street view app from Google 🟡](https
 
 I'm not aware of any other working apps (especially for iPhone) which are free, so **any suggestions are appreciated!**
 
-You can also use an app like [Hugin 🟡/🔴](https://hugin.sourceforge.io/) to **stitch together** a bunch of **normal photos**.
+You can also use a desktop app like [Hugin 🟡/🔴](https://hugin.sourceforge.io/) to **stitch together** a bunch of **normal photos**.
 
 -----
 If you are planning on making a **photo tour** OR you want your photo to **have a heading**, I recommend reading [how to get a photo's heading 🟢](#getting-a-photos-heading-before-it-was-shot-) first.
@@ -106,6 +112,8 @@ There exists a great upload tool - [PhotoSphereStudio](https://maps.moomoo.me/),
 Here I will try to explain how to use it.
 
 When you first open the site, you will have to **log in** using your **Google account**. Log in and grant it the necessary permissions.
+
+Keep in mind that it's still a third-party app - even if it is open source and should be safe. I personally do use this app, but you should still review the permissions you're giving it while logging in.
 
 <img alt="PhotoSphereStudio page with the login button highlighted" src="./assets/photospherestudio-login-button.png" />
 
@@ -462,7 +470,7 @@ We are going to use the [photo.update](https://developers.google.com/streetview/
 
 Note: for list-type fields - connections and places - updating **REPLACES THE ENTIRE LIST**, it doesn't add to it. If the photo already has connections or places you want to keep, include them in the body along with the new ones, or they'll be removed.
 
-Once a photo is uploaded, you can update almost anything about it - its connections, its heading/pose, or the placeId it's linked to - without re-uploading it. All of this is done with the same photos.update API, just with a different updateMask and request body depending on what you want to change.
+Once a photo is uploaded, you can update almost anything about it - its connections, its heading/pose, or the placeId it's linked to - without re-uploading it. All of this is done with the same photo.update API, just with a different updateMask and request body depending on what you want to change.
 
 When you open the API's page, you will see three important fields - below "Request parameters", there is **"id" and "updateMask"**. In the id field (field below id), paste the **photo's whole ID** (the photo whose information you want to update). You will be told what to put in the updateMask field based on what you want to update.
 
@@ -808,3 +816,12 @@ A filled-in template example might look like this:
 Most of this guide is info from my **personal experience**. I still want to be honest and say that AI was used in some sections of this tutorial. However, it had the correct resources and every output was reviewed by me - meaning it's not some AI slop. Still there may be some **mistakes**, because **no one is perfect**.
 
 If you find any mistakes or if you want to update the guide - don't hesitate to **submit a PR**. If you didn't understand a section of the guide, you can try to update the section so other people can understand it better! Simply **don't be afraid to contribute** :)
+
+## License ⚪
+[⬆ Back to top](#top)
+
+Copyright © 2026 Kocourek978 and contributors.
+
+Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+Credit **Kocourek978**.
