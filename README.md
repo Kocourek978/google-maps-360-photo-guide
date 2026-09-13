@@ -1,11 +1,11 @@
-# A comprehensive guide to 360 photos on Google maps
+# A comprehensive guide to 360 photos on Google Maps
 <a name="top"></a>
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 ![Tutorial](https://img.shields.io/badge/type-tutorial-blue)
 ![Last commit](https://img.shields.io/github/last-commit/Kocourek978/google-maps-360-photo-guide)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Kocourek978/google-maps-360-photo-guide/pulls)
 
-A how to guide on **creating**, **uploading** and **updating** 360 photos on Google maps with **no API key needed!**
+A how-to guide on **creating**, **uploading** and **updating** 360 photos on Google Maps with **no API key needed!**
 
 This is meant for **everyone** - **beginners** with little technical knowledge up to **professionals**.
 
@@ -22,9 +22,9 @@ This is meant for **everyone** - **beginners** with little technical knowledge u
 ## New to this? Start here!
 This is for people who are new to this. It's **in order** - pick the path that matches your goal, then follow the steps from top to bottom. The full **TOC is below** this section if you need it.
 
-### Just want to upload a photo to Google maps?
+### Just want to upload a photo to Google Maps?
 * [Creating 360 photo spheres (phone) 🟢/🟡](#creating-360-photo-spheres-phone-) (if you already have a photo, you can skip this section)
-* [Uploading 360 photos to Google maps 🟢](#uploading-360-photos-to-google-maps-)
+* [Uploading 360 photos to Google Maps 🟢](#uploading-360-photos-to-google-maps-)
 
 After that, I recommend reading [Photos upload info/FAQ ⚪](#photos-upload-infofaq-)
 
@@ -33,14 +33,14 @@ After that, I recommend reading [Photos upload info/FAQ ⚪](#photos-upload-info
 ### Want the photo to be properly tied to a place on maps?
 * [Creating 360 photo spheres (phone) 🟢/🟡](#creating-360-photo-spheres-phone-) (if you already have a photo, you can skip this section)
 * [Finding a placeId 🟢](#finding-a-placeid-) - do this **before** uploading, so you have it ready to paste in
-* [Uploading 360 photos to Google maps 🟢](#uploading-360-photos-to-google-maps-) - paste your placeId in during step 3
+* [Uploading 360 photos to Google Maps 🟢](#uploading-360-photos-to-google-maps-) - paste your placeId in during step 3
 
 **Already uploaded a photo without a placeId?** You can still add one after the fact using the API:
 * [Using APIs - general guide 🟡](#using-apis---general-guide-)
-* [Updating linked places (placeIDs) 🟡](#updating-linked-places-placeids)
+* [Updating linked places (placeIds) 🟡](#updating-linked-places-placeids)
 
 ### Want to build a walkable tour with multiple connected photos?
-If you want to build a street view like tour. Same as [Just want to upload a photo to Google maps](#just-want-to-upload-a-photo-to-google-maps), **plus**:
+If you want to build a Street View-like tour. Same as [Just want to upload a photo to Google Maps](#just-want-to-upload-a-photo-to-google-maps), **plus**:
 * [Getting a photo's heading before it was shot 🟢](#getting-a-photos-heading-before-it-was-shot-) - **IMPORTANT**: this is BEFORE the photo was shot! Read this first!
 * [Using APIs - general guide 🟡](#using-apis---general-guide-)
 * [Updating connections (Linking photos) 🟡](#updating-connections-linking-photos)
@@ -48,7 +48,7 @@ If you want to build a street view like tour. Same as [Just want to upload a pho
 ### Table of contents
 
   * [Creating 360 photo spheres (phone) 🟢/🟡](#creating-360-photo-spheres-phone-)
-  * [Uploading 360 photos to Google maps 🟢](#uploading-360-photos-to-google-maps-)
+  * [Uploading 360 photos to Google Maps 🟢](#uploading-360-photos-to-google-maps-)
   * [Photos upload info/FAQ ⚪](#photos-upload-infofaq-)
   * [A useful glossary ⚪](#a-useful-glossary-)
   * [Deleting uploaded photos 🟢/🟡](#deleting-uploaded-photos-)
@@ -64,7 +64,7 @@ If you want to build a street view like tour. Same as [Just want to upload a pho
       * [How to download your photos](#how-to-download-your-photos)
   * [Updating photos' information 🟡](#updating-photos-information-)
     * [Updating heading](#updating-heading)
-    * [Updating linked places (placeIDs)](#updating-linked-places-placeids)
+    * [Updating linked places (placeIds)](#updating-linked-places-placeids)
     * [Updating location](#updating-location)
     * [Updating connections (Linking photos)](#updating-connections-linking-photos)
       * [Single connections](#single-connections)
@@ -82,9 +82,9 @@ If you already have a 360 photo or are using a specialized camera to create them
 
 Getting a working app is **really hard**. There is **no universal working app** that's free to take 360 photos. There are a lot of paid apps to create 360 photos which work and some free ones which work for some users but don't for others.
 
-I personally use [Go Street View Photo Sphere 🟢](https://play.google.com/store/apps/details?id=com.gostreetview.camera) (android) despite it not working for a lot of people.
+I personally use [Go Street View Photo Sphere 🟢](https://play.google.com/store/apps/details?id=com.gostreetview.camera) (Android) despite it not working for a lot of people.
 
-Some people also use the **deprecated** [Street view app from Google 🟡](https://www.apkmirror.com/apk/google-inc/street-view/). You can download the latest version to see if it works for you (it didn't for me), or one of the older versions (I remember one of the old ones working). You can still test out different versions - maybe one of them will work.
+Some people also use the **deprecated** [Street View app from Google 🟡](https://www.apkmirror.com/apk/google-inc/street-view/). You can download the latest version to see if it works for you (it didn't for me), or one of the older versions (I remember one of the old ones working). You can still test out different versions - maybe one of them will work.
 
 I'm not aware of any other working apps (especially for iPhone) which are free, so **any suggestions are appreciated!**
 
@@ -102,12 +102,12 @@ Here's a video showcasing the functionality of most 360 photo apps. This one is 
 
 I personally like to take photos by first doing one circle around the middle part (always going either left or right), then doing a second circle on the bottom (take one photo on the bottom and again keep going left or right from the new photo's points) and then do the same for the top. I then fill in the rest of the sky and usually **don't** take a photo of the space right **at the bottom** (so my legs aren't there - **BUT** your photo app **might require** you take that photo).
 
-## Uploading 360 photos to Google maps 🟢
+## Uploading 360 photos to Google Maps 🟢
 [⬆ Back to top](#top)
 
 This is the easiest and simplest way to upload your photos.
 
-There exists a great upload tool - [PhotoSphereStudio](https://maps.moomoo.me/), which is an **open source** project on Github.
+There exists a great upload tool - [PhotoSphereStudio](https://maps.moomoo.me/), which is an **open source** project on GitHub.
 
 Here I will try to explain how to use it.
 
@@ -139,14 +139,14 @@ If you don't know how to get your photo's heading, read [how to get a photo's he
 At the bottom now there is an optional field to set a placeId, which I **heavily recommend** you do - since this will associate the photo with a place instead of showing it as being an unknown place. You can check the [finding a placeId](#finding-a-placeid-) section. Also if you later need to find the photo's information, you can filter by the placeId
 
 **4.**
-Then you are **ready to upload the photo** - click on the "Upload" button and wait a bit for the website to process it. If you did everything right, you will get a link for Google maps! You can also click the debug information option, where you will find the **ID of the photo**, which may be useful for other things in this guide.
+Then you are **ready to upload the photo** - click on the "Upload" button and wait a bit for the website to process it. If you did everything right, you will get a link for Google Maps! You can also click the debug information option, where you will find the **ID of the photo**, which may be useful for other things in this guide.
 
 Please check the [**Photos upload info/FAQ**](#photos-upload-infofaq-) section now!
 
 ## Photos upload info/FAQ ⚪
 [⬆ Back to top](#top)
 
-When you upload a photo, you have to **wait a few minutes** for it to start displaying a photo and for it to appear in your contributions tab on Google maps. Just keep refreshing the page using **CTRL + F5** (make sure to refresh this way due to the cache) until you see your photo! On phones, try to either wait longer or clear your browser's cache if you don't see your photo yet. If you have set any **placeIds**, you should be able to see the photo when you view the place on maps (though if the place has a lot of photos yours might be buried deep between them) - also in a few minutes.
+When you upload a photo, you have to **wait a few minutes** for it to start displaying a photo and for it to appear in your contributions tab on Google Maps. Just keep refreshing the page using **CTRL + F5** (make sure to refresh this way due to the cache) until you see your photo! On phones, try to either wait longer or clear your browser's cache if you don't see your photo yet. If you have set any **placeIds**, you should be able to see the photo when you view the place on maps (though if the place has a lot of photos yours might be buried deep between them) - also in a few minutes.
 
 When your photo gets uploaded, it will **NOT APPEAR** as a **blue circle (YET)**. It may take up to **three days** for your photo to appear as a blue circle on maps, if Google's algorithm deems it fit. There is no guarantee that it will appear as a blue circle, but from my testing, all of my photos did. You just have to be **patient**.
 
@@ -225,7 +225,7 @@ These are fields you'll see when looking at a photo's information in a JSON resp
 You will have to re-upload your photo.
 
 ### Deleting using the contributions tab 🟢
-This is the **easiest way** to delete photos. First, you must open the **contributions** tab on either your computer or on your phone in the Google maps app. To simplify this, you can just go here: https://www.google.com/maps/contrib/
+This is the **easiest way** to delete photos. First, you must open the **contributions** tab on either your computer or on your phone in the Google Maps app. To simplify this, you can just go here: https://www.google.com/maps/contrib/
 
 After that, navigate to the **photos section**. There, you'll see **all of your photos** you've ever uploaded. Scroll down to find your photo if it's old. When you find your photo, click on the **three dots** next to it and select delete. That's it!
 
@@ -508,7 +508,7 @@ A complete **filled-in example** might look like this:
 
 <img alt="Developers.google.com page with the API explorer open with the id, updateMask and Request body filled in" src="./assets/example-api-update-heading-filled.png" />
 
-### Updating linked places (placeIDs)
+### Updating linked places (placeIds)
 Please read [updating photos' information](#updating-photos-information-) if you haven't already before proceeding.
 
 In the updateMask field, type out ```places```.
